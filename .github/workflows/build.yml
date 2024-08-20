@@ -27,7 +27,7 @@ jobs:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}  # 事前にGitHub Secretsに設定する必要があります
         run: |
           echo $SFDX_AUTH_URL > auth-url.txt
-          sfdx auth:sfdxurl:store -f auth-url.txt
+          sf auth sfdxurl store -f auth-url.txt
 
       - name: Create Scratch Org
         run: sf org create scratch -d -f config/project-scratch-def.json -a build
