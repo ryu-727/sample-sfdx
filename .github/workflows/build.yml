@@ -1,0 +1,39 @@
+name: Create and Update Scratch Org
+
+on:
+  push:
+    branches:
+      - main  # メインブランチにプッシュされたときに実行
+
+jobs:
+  create_scratch_org:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: Install Salesforce CLI
+        run: npm install sfdx-cli --global
+
+      - name: Authenticate with Salesforce
+        env:
+          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}  # 事前にGitHub Secretsに設定する必要があります
+        run: |
+          echo $SFDX_AUTH_URL > auth-url.txt
+          sfdx auth:sfdxurl:store -f auth-url.txt
+
+      - name: Create Scratch Org
+        run: sf org create scratch -d -f config/project-scratch-def.json -a build
+
+      - name: Push source to Scratch Org
+        run: sf force source push
+
+      - name: Build
+        run: sf apex run test -l RunLocalTests
+        
