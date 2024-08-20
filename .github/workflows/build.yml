@@ -20,7 +20,9 @@ jobs:
           node-version: '16.x'
 
       - name: Install Salesforce CLI
-        run: npm install @salesforce/cli --global
+        run: |
+          npm install @salesforce/cli --global
+          sf --version
 
       - name: Authenticate with Salesforce
         env:
@@ -28,6 +30,7 @@ jobs:
         run: |
           echo $SFDX_AUTH_URL > auth-url.txt
           sf auth sfdxurl store -f auth-url.txt
+
       - name: Create Scratch Org
         run: sf org create scratch -d -f config/project-scratch-def.json -a build
 
