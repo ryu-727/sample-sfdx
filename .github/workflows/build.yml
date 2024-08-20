@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # メインブランチにプッシュされたときに実行
+      - 'features/**'
 
 jobs:
   create_scratch_org:
