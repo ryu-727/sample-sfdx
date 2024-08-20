@@ -19,7 +19,7 @@ jobs:
           node-version: '16.x'
 
       - name: Install Salesforce CLI
-        run: npm install sfdx-cli --global
+        run: npm install @salesforce/cli --global
 
       - name: Authenticate with Salesforce
         env:
