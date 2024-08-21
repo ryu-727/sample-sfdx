@@ -35,7 +35,7 @@ jobs:
       - name: Create Scratch Org
         run: |
           sf org create scratch -d -f config/project-scratch-def.json -a build
-          sf org disaplay --verbose -o build --json
+          sf org display --verbose -o build --json
         
       - name: Build
         run: |
