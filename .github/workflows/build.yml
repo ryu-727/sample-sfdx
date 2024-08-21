@@ -40,6 +40,6 @@ jobs:
       - name: Build
         run: |
           sf project deploy start --dry-run -l RunLocalTests
-          sf org delete -o build
+          sf org delete scratch -o build
 
         
