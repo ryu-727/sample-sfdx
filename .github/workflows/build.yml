@@ -39,7 +39,7 @@ jobs:
           sf org list
         
       - name: Build
-        run: sf project deploy start --dryrun -l RunLocalTests
+        run: sf project deploy start --dry-run -l RunLocalTests
 
       - name: Delete Org
         run: sf org delete -o build
