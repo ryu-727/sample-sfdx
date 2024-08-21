@@ -3,7 +3,7 @@ name: Create and Update Scratch Org
 on:
   push:
     branches:
-      - main  # メインブランチにプッシュされたときに実行
+      - main
       - 'features/**'
 
 jobs:
@@ -31,6 +31,7 @@ jobs:
         run: |
           echo "$SFDX_AUTH_URL" > auth-url.txt
           sf auth sfdxurl store -f auth-url.txt
+          sf org list
 
       - name: Create Scratch Org
         run: sf org create scratch -d -f config/project-scratch-def.json -a build
