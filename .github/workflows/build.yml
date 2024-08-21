@@ -34,11 +34,14 @@ jobs:
           sf org list
 
       - name: Create Scratch Org
-        run: sf org create scratch -d -f config/project-scratch-def.json -a build
-
-      - name: Push source to Scratch Org
-        run: sf force source push
-
+        run: |
+          sf org create scratch -d -f config/project-scratch-def.json -a build
+          sf org list
+        
       - name: Build
-        run: sf apex run test -l RunLocalTests
+        run: sf project deploy start --dryrun -l RunLocalTests
+
+      - name: Delete Org
+        run: sf org delete -o build
+        
         
