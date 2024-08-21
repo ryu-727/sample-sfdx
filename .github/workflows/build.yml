@@ -31,17 +31,15 @@ jobs:
         run: |
           echo "$SFDX_AUTH_URL" > auth-url.txt
           sf auth sfdxurl store -s -d -f auth-url.txt
-          sf org list
 
       - name: Create Scratch Org
         run: |
           sf org create scratch -d -f config/project-scratch-def.json -a build
-          sf org list
+          sf org disaplay --verbose -o build --json
         
       - name: Build
-        run: sf project deploy start --dry-run -l RunLocalTests
+        run: |
+          sf project deploy start --dry-run -l RunLocalTests
+          sf org delete -o build
 
-      - name: Delete Org
-        run: sf org delete -o build
-        
         
