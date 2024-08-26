@@ -25,7 +25,6 @@ jobs:
           sf --version
 
       - name: Authenticate with Salesforce
-        shell: bash
         env:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}  # 事前にGitHub Secretsに設定する必要があります
         run: |
