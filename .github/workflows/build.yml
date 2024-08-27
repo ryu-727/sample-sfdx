@@ -34,12 +34,15 @@ jobs:
       - name: Create Scratch Org
         run: |
           sf org create scratch -d -f config/project-scratch-def.json -a build
-          sf org display --verbose -o build --json
-        
+
       - name: Build
         run: |
           sf project deploy start --dry-run -l RunLocalTests
           sf org delete scratch -p -o build
-
-
+  jobs2:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Install Salesforce CLI
+          run: |
+            echo "Done!"
         
