@@ -1,4 +1,4 @@
-name: Create and Update Scratch Org
+name: Build
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - 'features/**'
 
 jobs:
-  create_scratch_org:
+  deploy_scratch_org:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,10 +39,11 @@ jobs:
         run: |
           sf project deploy start --dry-run -l RunLocalTests
           sf org delete scratch -p -o build
-  jobs2:
+
+  finish:
     runs-on: ubuntu-latest
-      steps:
-        - name: Install Salesforce CLI
-          run: |
-            echo "Done!"
+    needs: deploy_scratch_org
+    steps:
+      - name: send message
+        run: echo "Done!"
         
