@@ -1,0 +1,7 @@
+sequenceDiagram
+    VSCode->>GitHub: git push
+    GitHub->>GitHub Actions: on push
+    GitHub Actions->>ScratchOrg: sf project deploy start
+    ScratchOrg-->>GitHub Actions: response
+    GitHub Actions ->> Slack: notify
+
