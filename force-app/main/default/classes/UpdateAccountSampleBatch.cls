@@ -7,7 +7,7 @@ public class UpdateAccountSampleBatch implements Database.Batchable<SObject>, Da
 
   public void execute(Database.BatchableContext bc, List<Account> scope) {
     for (Account acc : scope) {
-      acc.Rating = 'Cold';
+      acc.Rating = 'Hot';
     }
     update scope;
   }
