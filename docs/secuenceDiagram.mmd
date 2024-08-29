@@ -1,7 +1,11 @@
-sequenceDiagram
-    VSCode->>GitHub: git push
-    GitHub->>GitHub Actions: on push
-    GitHub Actions->>ScratchOrg: sf project deploy start
-    ScratchOrg-->>GitHub Actions: response
-    GitHub Actions ->> Slack: notify
+@startuml
+participant "VSCode" as V
+participant "GitHub" as G
+participant "GitHub Actions" as GA
+participant "ScratchOrg" as S
 
+V -> G : git push
+G -> GA : on push
+GA -> S : sf project deploy start
+S --> GA : response
+@enduml
