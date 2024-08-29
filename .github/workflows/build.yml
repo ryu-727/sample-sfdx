@@ -1,10 +1,10 @@
-name: Build
+name: Build # ワークフローの名前
 
 on:
   push:
     branches:
       - main
-      - 'features/**'
+      - "features/**"
 
 jobs:
   deploy_scratch_org:
@@ -17,28 +17,36 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
       - name: Install Salesforce CLI
         run: |
           npm install @salesforce/cli --global
           sf --version
 
+      # - name: Authenticate with Salesforce
+      #   env:
+      #     SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}  # 事前にGitHub Secretsに設定する必要があります
+      #   run: |
+      #     echo "$SFDX_AUTH_URL" > auth-url.txt
+      #     sf auth sfdxurl store -s -d -f auth-url.txt
+
+      # - name: Create Scratch Org
+      #   run: |
+      #     sf org create scratch -d -f config/project-scratch-def.json -a build
+
+      # Developer EditionだとScratch Orgの作成に上限があるため作成済みのScratch Orgを利用する
       - name: Authenticate with Salesforce
         env:
-          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}  # 事前にGitHub Secretsに設定する必要があります
+          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }} # 事前にGitHub Secretsに設定する必要があります
         run: |
           echo "$SFDX_AUTH_URL" > auth-url.txt
-          sf auth sfdxurl store -s -d -f auth-url.txt
-
-      - name: Create Scratch Org
-        run: |
-          sf org create scratch -d -f config/project-scratch-def.json -a build
+          sf auth sfdxurl store -s -f auth-url.txt
 
       - name: Build
         run: |
           sf project deploy start --dry-run -l RunLocalTests
-          sf org delete scratch -p -o build
+          # sf org delete scratch -p -o build
 
   finish:
     runs-on: ubuntu-latest
@@ -46,4 +54,3 @@ jobs:
     steps:
       - name: send message
         run: echo "Done!"
-        
