@@ -1,17 +1,14 @@
 public class UpdateAccountSampleBatch implements Database.Batchable<SObject>, Database.Stateful {
-  // クエリメソッド
   public Database.QueryLocator start(Database.BatchableContext bc) {
-    // アクティブな取引先レコードを取得するクエリ
     return Database.getQueryLocator(
-      [SELECT Id, Name FROM Account WHERE IsActive__c = TRUE]
+      [SELECT Id, Name FROM Account WHERE Rating = 'Hot']
     );
   }
 
-  // 処理メソッド
   public void execute(Database.BatchableContext bc, List<Account> scope) {
-    // 取引先名の末尾に "- Processed" を追加
+    // 取引先名の末尾に "- Hot" を追加
     for (Account acc : scope) {
-      acc.Name += ' - Processed';
+      acc.Name += ' - Hot';
     }
     // 取引先レコードを更新
     update scope;
