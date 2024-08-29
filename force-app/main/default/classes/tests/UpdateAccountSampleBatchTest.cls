@@ -23,7 +23,7 @@ private class UpdateAccountSampleBatchTest {
       WHERE Rating = 'Hot'
     ];
     for (Account acc : updatedAccounts) {
-      System.assertEquals(acc.Name, acc.Name.removeEnd(' - Hot'));
+      Assert.isTrue(acc.Name.contains('- Hot'));
     }
   }
 }
