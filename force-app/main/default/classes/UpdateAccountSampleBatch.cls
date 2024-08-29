@@ -8,7 +8,7 @@ public class UpdateAccountSampleBatch implements Database.Batchable<SObject>, Da
   public void execute(Database.BatchableContext bc, List<Account> scope) {
     // 取引先名の末尾に "- Hot" を追加
     for (Account acc : scope) {
-      acc.Rating = 'Hot';
+      acc.Rating = 'Cold';
     }
     // 取引先レコードを更新
     update scope;
