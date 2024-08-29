@@ -23,7 +23,7 @@ private class UpdateAccountSampleBatchTest {
       WHERE IsActive__c = TRUE
     ];
     for (Account acc : updatedAccounts) {
-      Assert.isTrue(acc.Name.Rating, 'rating is true');
+      Assert.isTrue(acc.Rating, 'rating is true');
     }
   }
 }
