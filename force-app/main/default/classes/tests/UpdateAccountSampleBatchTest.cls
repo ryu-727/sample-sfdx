@@ -5,7 +5,7 @@ private class UpdateAccountSampleBatchTest {
     // Create test data
     List<Account> accounts = new List<Account>();
     for (Integer i = 0; i < 200; i++) {
-      Account acc = new Account(Name = 'Test Account ' + i, Rating = 'Hot');
+      Account acc = new Account(Name = 'Test Account ' + i, IsActive__c = true);
       accounts.add(acc);
     }
     insert accounts;
@@ -18,12 +18,12 @@ private class UpdateAccountSampleBatchTest {
 
     // Verify the results
     List<Account> updatedAccounts = [
-      SELECT Name
+      SELECT Name, Rating
       FROM Account
-      WHERE Rating = 'Hot'
+      WHERE IsActive__c = TRUE
     ];
     for (Account acc : updatedAccounts) {
-      Assert.isTrue(acc.Name.contains('- Hot'));
+      Assert.isTrue(acc.Name.Rating, 'rating is true');
     }
   }
 }
