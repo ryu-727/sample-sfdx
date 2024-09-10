@@ -40,12 +40,15 @@ jobs:
         env:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }} # 事前にGitHub Secretsに設定する必要があります
         run: |
+          : # auth url は sf org display --verboseで入手できます
           echo "$SFDX_AUTH_URL" > auth-url.txt
           sf auth sfdxurl store -s -f auth-url.txt
 
       - name: Build
         run: |
+          : # --dry-runを指定する事で実際のリリースは行われません。
           sf project deploy start --dry-run -l RunLocalTests
+          : # Scratch Orgの場合は削除するなど
           # sf org delete scratch -p -o build
 
   finish:
